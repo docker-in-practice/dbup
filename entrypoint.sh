@@ -39,6 +39,7 @@ fi
 if [ "$OP" = save ]; then
     echo "Saving image!"
     /docker save "$IMAGE" | bup split -n "$BNAME"
+    chmod -R a+rwX /pool # rw for files, rwx for dirs
     echo "Done!"
 elif [ "$OP" = load ]; then
     echo "Loading image!"
