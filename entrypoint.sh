@@ -23,6 +23,10 @@ if [ ! -d /pool ]; then
     echo "Please volume mount a folder to /pool"
     exit 1
 fi
+if [ $(find /pool | wc -l) != 1 -a ! -f /pool/is_dbup ]; then
+    echo "/pool does not look like a folder created by dbup"
+    exit 1
+fi
 if [ ! -e /var/run/docker.sock ]; then
     echo "Please mount the docker socket into the container"
     exit 1
@@ -35,6 +39,7 @@ if ! bup init >/tmp/initlog 2>&1; then
     cat /tmp/initlog
     echo "Could not initialise /pool!"
 fi
+touch /pool/is_dbup
 
 if [ "$OP" = save ]; then
     echo "Saving image!"
