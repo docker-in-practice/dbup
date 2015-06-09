@@ -56,3 +56,17 @@ total size is 89,583,993  speedup is 6.80
 ```
 
 As you can see, a dbup data pool is very amenable to syncing.
+
+Time to load the image back in:
+
+```
+$ docker rmi ubuntu:14.04.2
+Untagged: ubuntu:14.04.2
+[...]
+$ cd target
+target $ dbup load ubuntu:14.04.2
+Loading image!
+Done!
+target $ docker images | grep '14\.04\.2'
+ubuntu   14.04.2      d0955f21bf24        11 weeks ago        188.3 MB
+```
